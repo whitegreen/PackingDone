@@ -52,7 +52,7 @@ templates.append([(0, 0, -1, 0), (0, 0, 0, 0), (0, 0, 1, 0)])
 templates.append([(0, 0, 0, -1), (0, 0, 0, 0), (0, 0, 0, 1)])
 for i in range(4):
     for j in range(3):
-        templates.append([templates[i][0], (0, 0, 0, 0), templates[(i + 1) % 4][2]])
+        templates.append([templates[i][0], (0, 0, 0, 0), templates[(i + j+1) % 4][2]])
 assert (K == len(templates))
 rangeType = [[1, 30] for k in range(K)]
 

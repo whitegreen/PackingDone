@@ -12,6 +12,7 @@ import ip.M;
 import processing.core.PApplet;
 import quasi.AmmBeen;
 
+//same results by T_C_AmmBeen.py
 public class T_C_AmmBeen extends PApplet {   // Type  (keyType) <-->  Category  (4-15)
 	private static final int en =7 ;
 	private static final int DM=AmmBeen.DM;
@@ -48,12 +49,20 @@ public class T_C_AmmBeen extends PApplet {   // Type  (keyType) <-->  Category  
 		}
 		for (int i = 0; i < DM; i++)
 			for (int j = 0; j < DM - 1; j++)
-				templates[DM + i * (DM - 1) + j] = new int[][] { templates[i][0], new int[DM], templates[(i + 1) % DM][2] }; // L shape
+				templates[DM + i * (DM - 1) + j] = new int[][] { templates[i][0], new int[DM], templates[(i+ j+1) % DM][2] }; // L shape
 
 		templates[16] = new int[][] { { 0, 0, 0, 0 }, { 1, 0, 0, 0 } }; // 2-straight
 		templates[17] = new int[][] { { 0, 0, 0, 0 }, { 0, 1, 0, 0 } };
 		templates[18] = new int[][] { { 0, 0, 0, 0 }, { 0, 0, 1, 0 } };
 		templates[19] = new int[][] { { 0, 0, 0, 0 }, { 0, 0, 0, 1 } };
+		
+		for (int k = 0; k < K; k++) {
+ 			int[][] arr = templates[k];
+ 			print("[");
+ 			for (int[] v : arr)
+ 				print("(" + v[0] + "," + v[1] + "," + v[2] + "," + v[3]+ "),");
+ 			println("],");
+ 		}
 
 		_P_ = AmmBeen.expand(P); // boundary (should be void)
 		println("P " + P.length + ", " + "Q " + _P_.length);
@@ -125,11 +134,11 @@ public class T_C_AmmBeen extends PApplet {   // Type  (keyType) <-->  Category  
 				model.addConstr(expr, GRB.GREATER_EQUAL, X[tj][i], "");
 			}
 
+			int ti = keyType;
 			for (tj = 4; tj < 16; tj++) { // independent
-				int ti = keyType;
+				int[][] AA = AA(ti, tj);
 				for (int i = 0; i < P.length; i++) {
 					GRBLinExpr expr = new GRBLinExpr();
-					int[][] AA = AA(ti, tj);
 					for (int[] v : AA) {
 						Integer id = M.contain(P, M.add(P[i], v));
 						if (null != id)

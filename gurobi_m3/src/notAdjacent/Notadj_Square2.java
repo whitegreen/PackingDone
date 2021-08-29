@@ -10,6 +10,7 @@ import gurobi.GRBVar;
 import ip.M;
 import processing.core.PApplet;
 
+//same results by Notadj_Square2.py
 public class Notadj_Square2 extends PApplet { // Category (0-3) adj Category (8-9),     8 not adj 9 
 	private static final int DM=2;
 	private int[][] P; // grid
@@ -56,6 +57,8 @@ public class Notadj_Square2 extends PApplet { // Category (0-3) adj Category (8-
 
 		optimize();
 
+//		res = new boolean[K][P.length];
+
 		cols = new int[P.length];
 		for (int i = 0; i < P.length; i++)
 			cols[i] = color(random(256), random(256), random(256), 200);
@@ -100,7 +103,8 @@ public class Notadj_Square2 extends PApplet { // Category (0-3) adj Category (8-
 				}
 				model.addConstr(expr, GRB.LESS_EQUAL, 1, "");
 			}
-
+			
+			//************************************* type number *********************
 			GRBLinExpr typepr = new GRBLinExpr();  // types other than Category (0-3) & Category (8-9)
 			for (int k = 4; k <8; k++)    
 				for (int i = 0; i < P.length; i++)
@@ -169,10 +173,10 @@ public class Notadj_Square2 extends PApplet { // Category (0-3) adj Category (8-
 	}
 
 	private void notAdj(GRBModel model, int ti, int tj, GRBVar[][] X) throws GRBException { // given tj, no ti around (undirected)
+		int[][] AA = AA(ti, tj);
+		int bigM = AA.length;
 		for (int i = 0; i < P.length; i++) {
 			GRBLinExpr expr = new GRBLinExpr();
-			int[][] AA = AA(ti, tj);
-			int bigM = AA.length;
 			for (int[] v : AA) {
 				Integer id = M.contain(P, M.add(P[i], v));
 				if (null != id)

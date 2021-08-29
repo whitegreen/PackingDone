@@ -11,7 +11,7 @@ install: python -m pip install gurobipy
 The python programs have no visualization. 
 
 ## Java project: gurobi_m3
-1. link project to gurobi.jar after installing Gurobi
+1. link gurobi.jar to the project after installing Gurobi
 2. add external lib: core.jar, PeasyCam.jar, both are included in the repo.
 
 The Java programs display the visual results:

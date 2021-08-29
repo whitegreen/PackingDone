@@ -1,4 +1,4 @@
-# the same results by categoryAdjacent/T_C_AmmBeen.java
+# the same results by categoryAdjacent/C_C_AmmBeen.java
 import gurobipy as gp
 from gurobipy import GRB, LinExpr
 import M
@@ -41,26 +41,29 @@ A.append([(0, 0, -1, 0), (0, 0, 0, 0), (0, 0, 1, 0)])
 A.append([(0, 0, 0, -1), (0, 0, 0, 0), (0, 0, 0, 1)])
 for i in range(DM):
     for j in range(3):
-        A.append([A[i][0], (0, 0, 0, 0), A[(i + j + 1) % DM][2]])
+        A.append([A[i][0], (0, 0, 0, 0), A[(i +j+ 1) % DM][2]])
 A.append([(0, 0, 0, 0), (1, 0, 0, 0)])  # 2 - straight
 A.append([(0, 0, 0, 0), (0, 1, 0, 0)])
 A.append([(0, 0, 0, 0), (0, 0, 1, 0)])
 A.append([(0, 0, 0, 0), (0, 0, 0, 1)])
 assert (K == len(A))
 
-# for tmp in A:
-#     st = ''
-#     for p in tmp:
-#         st = st + str(p[0])+ ','+str(p[1])+','+str(p[2])+ ','+str(p[3])+"  "
-#     print(st)
-
 _P_ = M.expand(P, DM)
 print(len(P), len(_P_))
 
-keyType = 0
+AAdict = {}
+Ca = [x for x in range(4)]  # category A (0-3)
+Cb = [x for x in range(4, 16)]  # category B (4-15)
+for a in Ca:
+    for b in Cb:
+        pair = (a, b)
+        AA, inv = M.calAA2(pair, A)
+        AAdict[pair] = AA
+        AAdict[(b, a)] = inv
+
 def optimize():
     try:
-        m = gp.Model("Type-Category Adjacent")
+        m = gp.Model("Category-Category Adjacent")
         X = [m.addVars(P, vtype=GRB.BINARY) for k in range(K)]
         oe = LinExpr()
         for k in range(K):
@@ -90,28 +93,28 @@ def optimize():
             le.add(X[k].sum())
         m.addConstr(le <= 20)  # sum of type 16-19 <= threshold
 
-# *********************************** adjacency ***********************************
-        tj = keyType
-        for v in P:
-            le = LinExpr()
-            for ti in range(4, 16):
-                AA = M.calAA4((ti, tj), A)
-                for pa in AA:
-                    u = M.add(v, pa)
-                    if u in P:
-                        le.add(X[ti][u])
-            m.addConstr(le >= X[tj][v]) # given a keyType patch, at least a (4,15)-patch around
-
-        ti = keyType
-        for tj in range(4, 16):
-            AA = M.calAA4((ti, tj), A)
+        # *********************************** adjacency ***********************************
+        for tj in Ca:  # category A (0-3)
+            # given a tj-type patch, at least one adjacent patch from category B
             for v in P:
                 le = LinExpr()
-                for pa in AA:
-                    u = M.add(v, pa)
-                    if u in P:
-                        le.add(X[ti][u])
-                m.addConstr(le >= X[tj][v])  # given a (4,15)-patch, at least one keyType patch around
+                for ti in Cb:  # category B (4-15)
+                    for pa in AAdict[(ti, tj)]:
+                        u = M.add(v, pa)
+                        if u in P:
+                            le.add(X[ti][u])
+                m.addConstr(le >= X[tj][v])
+
+        for tj in Cb:  # category B (4-15)
+            # given a tj-type patch, at least one adjacent patch from category A
+            for v in P:
+                le = LinExpr()
+                for ti in Ca:  # category A (0-3)
+                    for pa in AAdict[(ti, tj)]:
+                        u = M.add(v, pa)
+                        if u in P:
+                            le.add(X[ti][u])
+                m.addConstr(le >= X[tj][v])
 
         m.optimize()
         for k in range(K):

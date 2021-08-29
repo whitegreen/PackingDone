@@ -10,6 +10,7 @@ import gurobi.GRBVar;
 import ip.M;
 import processing.core.PApplet;
 
+//same results by C_C_Square.py
 public class C_C_Square extends PApplet { // Category (0-3) <--> Category (8-9)
 	private static final int DM=2;
 	private int[][] P; // grid
@@ -105,7 +106,7 @@ public class C_C_Square extends PApplet { // Category (0-3) <--> Category (8-9)
 				GRBLinExpr typepr = new GRBLinExpr();
 				for (int i = 0; i < P.length; i++)
 					typepr.addTerm(1, X[k][i]);
-				model.addConstr(typepr, GRB.EQUAL, 2, "");// one type , tow copies
+				model.addConstr(typepr, GRB.EQUAL, 2, "");// one type , two copies
 			}
 
 			// ******************************* category-category adjacency ************************************

@@ -10,6 +10,7 @@ import gurobi.GRBVar;
 import ip.M;
 import processing.core.PApplet;
 
+//same results by Notadj_Square.py
 public class Notadj_Square extends PApplet { // Category (0-3) not adj Category (4-5)
 	private static final int DM = 2;
 	private int[][] P; // grid
@@ -118,9 +119,9 @@ public class Notadj_Square extends PApplet { // Category (0-3) not adj Category 
 			// *******************************not adjacent ************************************
 		   for (int i = 0; i < 4; i++)
 				for (int j = i ; j < 4; j++)
-					notAdj(model, i, j, X);
+					notAdj(model, i, j, X);  //  patches from category A are apart
 			 
-			for (int tj = 0; tj < 4; tj++) {
+			for (int tj = 0; tj < 4; tj++) {  //   patches from category A are apart that from  category B
 				// given tj, ti=4,5 are not adjacent
 				for (int i = 0; i < P.length; i++) {
 					GRBLinExpr expr = new GRBLinExpr();
@@ -170,10 +171,10 @@ public class Notadj_Square extends PApplet { // Category (0-3) not adj Category 
 		return M.toArray(list);
 	}
 	private void notAdj(GRBModel model, int ti, int tj, GRBVar[][] X) throws GRBException { // given tj, no ti around (undirected)
+		int[][] AA = AA(ti, tj);
+		int bigM = AA.length;
 		for (int i = 0; i < P.length; i++) {
 			GRBLinExpr expr = new GRBLinExpr();
-			int[][] AA = AA(ti, tj);
-			int bigM = AA.length;
 			for (int[] v : AA) {
 				Integer id = M.contain(P, M.add(P[i], v));
 				if (null != id)

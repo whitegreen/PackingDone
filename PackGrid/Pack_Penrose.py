@@ -34,7 +34,7 @@ for i in range(DM):
     templates.append([M.harr(tzo, i, -1), tzo, M.harr(tzo, i, 1)])
 for i in range(DM):
     for j in range(DM - 1):
-        templates.append([templates[i][0], tzo, templates[(i + 1) % DM][2]])
+        templates.append([templates[i][0], tzo, templates[(i + j+1) % DM][2]])
 assert (K == len(templates))
 rangeType = [[1, 40] for k in range(K)]
 

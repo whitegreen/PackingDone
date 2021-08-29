@@ -41,7 +41,7 @@ public class PackPenrose extends PApplet { //same results by Pack_square.py
 		}
 		for (int i = 0; i < DM; i++)
 			for (int j = 0; j < DM-1; j++)
-				templates[DM + i * (DM-1) + j] = new int[][] { templates[i][0], new int[DM], templates[(i + 1) % DM][2] }; // L shape
+				templates[DM + i * (DM-1) + j] = new int[][] { templates[i][0], new int[DM], templates[(i +j+ 1) % DM][2] }; // L shape
 //		for (int[] p : P) {
 //			String s = " (";
 //			for (int i=0;i<p.length;i++)

@@ -11,6 +11,7 @@ import ip.M;
 import processing.core.PApplet;
 import quasi.AmmBeen;
 
+//same results by C_C_AmmBeen.py
 public class C_C_AmmBeen extends PApplet {   // Category (0-3)  <-->  Category (4-15)
 	private static final int en =7 ;
 	private static final int DM=AmmBeen.DM;
@@ -47,7 +48,7 @@ public class C_C_AmmBeen extends PApplet {   // Category (0-3)  <-->  Category (
 		}
 		for (int i = 0; i < DM; i++)
 			for (int j = 0; j < DM - 1; j++)
-				templates[DM + i * (DM - 1) + j] = new int[][] { templates[i][0], new int[DM], templates[(i + 1) % DM][2] }; // L shape
+				templates[DM + i * (DM - 1) + j] = new int[][] { templates[i][0], new int[DM], templates[(i +j+ 1) % DM][2] }; // L shape
 
 		templates[16] = new int[][] { { 0, 0, 0, 0 }, { 1, 0, 0, 0 } }; // 2-straight
 		templates[17] = new int[][] { { 0, 0, 0, 0 }, { 0, 1, 0, 0 } };
