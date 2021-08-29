@@ -16,5 +16,5 @@ The python programs have no visualization.
 
 The Java programs display the visual results:
 
-![results]https://github.com/whitegreen/PackingDone/blob/main/javaDisplay.png
+![results](https://github.com/whitegreen/PackingDone/blob/main/javaDisplay.png)
 
