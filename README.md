@@ -15,5 +15,6 @@ The python programs have no visualization.
 2. add external lib: core.jar, PeasyCam.jar, both are included in the repo.
 
 The Java programs display the visual results:
+
 ![results]https://github.com/whitegreen/PackingDone/blob/main/javaDisplay.png
 
