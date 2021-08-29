@@ -14,5 +14,6 @@ The python programs have no visualization.
 1. link project to gurobi.jar after installing Gurobi
 2. add external lib: core.jar, PeasyCam.jar, both are included in the repo.
 
-The Java programs display the visual results. 
+The Java programs display the visual results:
+![results]https://github.com/whitegreen/PackingDone/blob/main/javaDisplay.png
 
