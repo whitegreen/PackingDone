@@ -1,5 +1,5 @@
 # PackingDone
-Packing given shapes onto a grid with 0-1 integer linear programming via [Gurobi](https://www.gurobi.com/) Python/Java API.
+Packing given polyominoes onto a grid with 0-1 integer linear programming via [Gurobi](https://www.gurobi.com/) Python/Java API.
 
 This repo includes a Python project and a Java project. Each Python file and its Java version always result in the same Gurobi program.
 
