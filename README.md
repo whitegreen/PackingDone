@@ -1,15 +1,15 @@
 # PackingDone
-Packing given shapes onto a grid with 0-1 integer linear programming via Gurobi Python/Java API
+Packing given shapes onto a grid with 0-1 integer linear programming via **Gurobi** Python/Java API
 
-This repo includes a Python project and a Java project. One Python file and the corresponind Java file always result in the same Gurobi program.
+This repo includes a Python project and a Java project. Each Python file and its Java version always result in the same Gurobi program.
 
 First, install Gurobi and get a license.
 
-##Python project: PackGrid
+## Python project: PackGrid
 install: python -m pip install gurobipy
-The python programs do not inculde visulization. 
+The python programs have no visualization. 
 
-##Java progject: gurobi_m3
+## Java project: gurobi_m3
 1. link project to gurobi.jar after installing Gurobi
 2. add external lib: core.jar, PeasyCam.jar, both are included in the repo.
 The Java programs display the visual results. 
